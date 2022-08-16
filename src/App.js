@@ -1,5 +1,9 @@
-import { useContext, useState, useReducer } from "react";
-import { CountContext } from "./CountContext/CountContext";
+import { useState, useReducer, useContext } from "react";
+import { CountContext } from './CountContext/CountContext'
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment, reset } from "./Redux/countSlice";
+import useCounter from "./Zustand/useCounter";
+import { observer } from "mobx-react";
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -75,4 +79,53 @@ const AppWithContext = () => {
   );
 };
 
-export default AppWithReducer;
+const AppWithRedux = () => {
+  const count = useSelector((state) => state.counter.count);
+  const dispatch = useDispatch();
+
+  return (
+    <div className="App">
+      <div>Counter: {count}</div>
+      <div>
+        <button onClick={() => dispatch(increment())}>+1</button>
+        <button onClick={() => dispatch(decrement())}>-1</button>
+        <button onClick={() => dispatch(reset())}>Reset</button>
+      </div>
+    </div>
+  );
+};
+
+const AppWithZustand = () => {
+  const { count, increment, decrement, reset } = useCounter((state) => ({
+    count: state.count,
+    increment: state.increment,
+    decrement: state.decrement,
+    reset: state.reset,
+  }));
+
+  return (
+    <div className="App">
+      <div>Counter: {count}</div>
+      <div>
+        <button onClick={increment}>+1</button>
+        <button onClick={decrement}>-1</button>
+        <button onClick={reset}>Reset</button>
+      </div>
+    </div>
+  );
+};
+
+const AppWithMobx = observer(({ counter }) => {
+  return (
+    <div className="App">
+      <div>Counter: {counter.count}</div>
+      <div>
+        <button onClick={() => counter.increment()}>+1</button>
+        <button onClick={() => counter.decrement()}>-1</button>
+        <button onClick={() => counter.reset()}>Reset</button>
+      </div>
+    </div>
+  );
+});
+
+export default AppWithMobx;
