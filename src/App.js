@@ -1,9 +1,16 @@
 import { useState, useReducer, useContext } from "react";
-import { CountContext } from './CountContext/CountContext'
+import { CountContext } from "./CountContext/CountContext";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment, reset } from "./Redux/countSlice";
 import useCounter from "./Zustand/useCounter";
 import { observer } from "mobx-react";
+
+const NotState = ({aList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}) => {
+  const filteredList = aList.filter((item) => item % 2 === 0);
+  const value = "a constant value";
+
+  return filteredList.map((item) => <div key={item}>{item}</div>);
+};
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -128,4 +135,4 @@ const AppWithMobx = observer(({ counter }) => {
   );
 });
 
-export default AppWithMobx;
+export default NotState;
