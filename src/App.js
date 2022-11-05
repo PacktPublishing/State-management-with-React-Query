@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment, reset } from "./Redux/countSlice";
 import useCounter from "./Zustand/useCounter";
 import { observer } from "mobx-react";
+import { GlobalContext } from "./GlobalContext/GlobalContext";
 
-const NotState = ({aList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}) => {
+const NotState = ({ aList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }) => {
   const filteredList = aList.filter((item) => item % 2 === 0);
   const value = "a constant value";
 
@@ -86,6 +87,23 @@ const AppWithContext = () => {
   );
 };
 
+const AppWithGlobalContext = () => {
+  const { selectedTheme, toggleTheme, data, isLoadingData, fetchData } =
+    useContext(GlobalContext);
+
+  console.log(data);
+  return (
+    <div className="App">
+      <div>selectedTheme: {selectedTheme}</div>
+      <div>Is Loading: {String(isLoadingData)}</div>
+      <div>
+        <button onClick={toggleTheme}>Theme</button>
+        <button onClick={() => fetchData("pikachu")}>Pikachu</button>
+      </div>
+    </div>
+  );
+};
+
 const AppWithRedux = () => {
   const count = useSelector((state) => state.counter.count);
   const dispatch = useDispatch();
@@ -135,4 +153,4 @@ const AppWithMobx = observer(({ counter }) => {
   );
 });
 
-export default NotState;
+export default AppWithGlobalContext;
