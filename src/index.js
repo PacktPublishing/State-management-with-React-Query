@@ -2,11 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import CountProvider from "./CountContext/CountContext";
-import GlobalProvider from "./GlobalContext/GlobalContext";
-import myCounter from "./Mobx/Counter";
-import { Provider } from "react-redux";
-import store from "./Redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
@@ -36,13 +31,7 @@ const CombinedProviders = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <CountProvider>
-          <GlobalProvider>
-            <App counter={myCounter} />
-          </GlobalProvider>
-        </CountProvider>
-      </Provider>
+      <App />
       {showDevtools && (
         <React.Suspense fallback={null}>
           <ReactQueryDevtoolsProduction />
