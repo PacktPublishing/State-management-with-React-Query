@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "dev": "remix dev",
+    "start": "remix-serve build"
+  },
+  "dependencies": {
+    "@remix-run/node": "^1.11.0",
+    "@remix-run/react": "^1.11.0",
+    "@remix-run/serve": "^1.11.0",
+    "@tanstack/react-query": "^4.22.0",
+    "axios": "^1.2.3",
+    "isbot": "^3.6.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "use-dehydrated-state": "^0.1.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.11.0",
+    "@remix-run/eslint-config": "^1.11.0",
+    "eslint": "^8.27.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
