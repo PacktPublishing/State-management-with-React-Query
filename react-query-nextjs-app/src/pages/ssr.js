@@ -15,15 +15,14 @@ export async function getServerSideProps() {
     [{ queryIdentifier: "api", username: "danieljcafonso" }],
     fetchData
   );
-  
+
   return { props: { dehydratedState: dehydrate(queryClient) } };
 }
 
 export default function SSR() {
-  const { data  } = useQuery({
+  const { data } = useQuery({
     queryKey: [{ queryIdentifier: "api", username: "danieljcafonso" }],
     queryFn: fetchData,
-    staleTime: 60000
   });
 
   return <div>This page is server side rendered {data.hello}</div>;

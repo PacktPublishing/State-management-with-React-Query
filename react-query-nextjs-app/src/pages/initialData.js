@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useLoaderData } from "@remix-run/react";
-import { json } from "@remix-run/node";
 
 const fetchData = async ({ queryKey }) => {
   const { username } = queryKey[0];
@@ -11,18 +9,16 @@ const fetchData = async ({ queryKey }) => {
   return data;
 };
 
-export async function loader() {
+export async function getServerSideProps() {
   const user = await fetchData({ queryKey: [{ username: "danieljcafonso" }] });
-  return json({ user });
+  return { props: { user } };
 }
 
-export default function Index() {
-  const { user } = useLoaderData();
-
+export default function InitialData(props) {
   const { data } = useQuery({
     queryKey: [{ queryIdentifier: "api", username: "danieljcafonso" }],
     queryFn: fetchData,
-    initialData: user,
+    initialData: props.user,
   });
 
   return <div>This page is server side rendered {data.hello}</div>;

@@ -13,6 +13,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { useDehydratedState } from "use-dehydrated-state";
+
 export const meta = () => ({
   charset: "utf-8",
   title: "New Remix App",

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
-import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 
 const fetchData = async ({ queryKey }) => {
