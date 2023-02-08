@@ -1,13 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import axios from "axios";
-
-const fetchData = async ({ pageParam = 1 }) => {
-  const { data } = await axios.get(
-    `https://danieljcafonso.builtwithdark.com/react-query-infinite?page=${pageParam}&results=10`
-  );
-
-  return data;
-};
+import { getInfiniteData } from "./api/userAPI";
+import { userKeys } from "./utils/queryKeyFactories";
 
 const InfiniteScroll = () => {
   const {
@@ -19,8 +12,8 @@ const InfiniteScroll = () => {
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ["api"],
-    queryFn: fetchData,
+    queryKey: userKeys.api,
+    queryFn: getInfiniteData,
     getNextPageParam: (lastPage, pages) => {
       return lastPage?.info?.nextPage;
     },

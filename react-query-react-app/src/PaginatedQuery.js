@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
+import { getPaginatedData } from "./api/userAPI";
+import { userKeys } from "./utils/queryKeyFactories";
 
 const fetchData = async ({ queryKey }) => {
   const { page } = queryKey[0];
-  const { data } = await axios.get(
-    `https://danieljcafonso.builtwithdark.com/react-query-paginated?page=${page}&results=10`
-  );
-  return data;
+  return await getPaginatedData(page)
 };
 
 export const PaginatedQuery = () => {
@@ -15,7 +13,7 @@ export const PaginatedQuery = () => {
 
   const { isLoading, isError, error, data, isFetching, isPreviousData } =
     useQuery({
-      queryKey: [{ queryIdentifier: "api", page }],
+      queryKey: userKeys.paginated,
       queryFn: fetchData,
       keepPreviousData: true,
     });

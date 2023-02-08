@@ -1,63 +1,20 @@
-import axios from "axios";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-
-const fetchAllData = async () => {
-  const { data } = await axios.get(
-    `https://danieljcafonso.builtwithdark.com/name-api`
-  );
-  return data;
-};
-
-const createUser = async (user) => {
-  return axios.post(`https://danieljcafonso.builtwithdark.com/name-api`, user);
-};
-
-const createUserFetch = async (user) => {
-  return fetch(`https://danieljcafonso.builtwithdark.com/name-api`, {
-    method: "POST",
-    body: JSON.stringify(user),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
-};
+import { createUser, fetchAllData } from "./api/userAPI";
+import useOptimisticUpdateUserCreation from "./hooks/useOptimisticUpdateUserCreation";
+import { userKeys } from "./utils/queryKeyFactories";
 
 export const Mutation = () => {
-  const queryClient = useQueryClient();
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
 
   const { data } = useQuery({
-    queryKey: ["allUsers"],
+    queryKey: userKeys.all,
     queryFn: fetchAllData,
     retry: 0,
   });
 
-  const mutation = useMutation({
-    mutationFn: createUserFetch,
-    retry: 3,
-    onSettled: () =>
-      queryClient.invalidateQueries({
-        queryKey: ["allUsers"],
-      }),
-    onMutate: async (user) => {
-      await queryClient.cancelQueries({
-        queryKey: ["allUsers"],
-      });
-
-      const previousUsers = queryClient.getQueryData({
-        queryKey: ["allUsers"],
-      });
-
-      queryClient.setQueryData(["allUsers"], (prevData) => [user, ...prevData]);
-
-      return { previousUsers };
-    },
-    onError: (error, user, context) => {
-      queryClient.setQueryData(["allUsers"], context.previousUsers);
-    },
-  });
+  const mutation = useOptimisticUpdateUserCreation();
 
   return (
     <div>
@@ -170,7 +127,7 @@ export const MutationWithSideEffects = () => {
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
-    queryKey: ["allUsers"],
+    queryKey: userKeys.all,
     queryFn: fetchAllData,
   });
 
@@ -178,7 +135,7 @@ export const MutationWithSideEffects = () => {
     mutationFn: createUser,
     onSuccess: (data) => {
       const user = data.data;
-      queryClient.setQueryData(["allUsers"], (prevData) => [user, ...prevData]);
+      queryClient.setQueryData(userKeys.all, (prevData) => [user, ...prevData]);
     },
   });
 
