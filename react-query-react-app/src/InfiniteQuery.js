@@ -12,7 +12,7 @@ const InfiniteScroll = () => {
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: userKeys.api,
+    queryKey: userKeys.api()(),
     queryFn: getInfiniteData,
     getNextPageParam: (lastPage, pages) => {
       return lastPage?.info?.nextPage;

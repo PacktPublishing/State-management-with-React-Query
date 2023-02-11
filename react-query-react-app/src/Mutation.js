@@ -1,15 +1,15 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { createUser, fetchAllData } from "./api/userAPI";
-import useOptimisticUpdateUserCreation from "./hooks/useOptimisticUpdateUserCreation";
+import useOptimisticUpdateUserCreation from "./hooks/user/useOptimisticUpdateUserCreation";
 import { userKeys } from "./utils/queryKeyFactories";
 
-export const Mutation = () => {
+export const OptimisticMutation = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
 
   const { data } = useQuery({
-    queryKey: userKeys.all,
+    queryKey: userKeys.all(),
     queryFn: fetchAllData,
     retry: 0,
   });
@@ -18,8 +18,8 @@ export const Mutation = () => {
 
   return (
     <div>
-      {data?.map((user) => (
-        <div key={user.userID}>
+      {data?.map((user, index) => (
+        <div key={user.userID + index}>
           Name: {user.name} Age: {user.age}
         </div>
       ))}
@@ -118,8 +118,8 @@ export const ConcurrentMutations = () => {
     </div>
   );
 };
-const showToast = (data) => console.log(data);
-const goToRoute = (data) => console.log(data);
+export const showToast = (data) => console.log(data);
+export const goToRoute = (data) => console.log(data);
 
 export const MutationWithSideEffects = () => {
   const [name, setName] = useState("");
@@ -127,7 +127,7 @@ export const MutationWithSideEffects = () => {
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
-    queryKey: userKeys.all,
+    queryKey: userKeys.all(),
     queryFn: fetchAllData,
   });
 
@@ -135,14 +135,18 @@ export const MutationWithSideEffects = () => {
     mutationFn: createUser,
     onSuccess: (data) => {
       const user = data.data;
-      queryClient.setQueryData(userKeys.all, (prevData) => [user, ...prevData]);
+      queryClient.setQueryData(userKeys.all(), (prevData) => [
+        user,
+        ...prevData,
+      ]);
+      showToast("toast");
     },
   });
 
   const submitForm = (e) => {
     e.preventDefault();
     mutate(
-      { name },
+      { name, age: 99 },
       {
         onSuccess: (data) => {
           const userId = data.data.userID;

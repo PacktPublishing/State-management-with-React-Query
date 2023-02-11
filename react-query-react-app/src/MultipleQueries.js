@@ -1,5 +1,5 @@
-import useMultipleQueries from "./hooks/useMultipleQueries";
-import useMultipleQueriesV2 from "./hooks/useMultipleQueriesV2";
+import useMultipleQueries from "./hooks/user/useMultipleQueries";
+import useMultipleQueriesV2 from "./hooks/user/useMultipleQueriesV2";
 
 export const ExampleOne = () => {
   const { queryOneData, queryTwoData, queryThreeData } = useMultipleQueries();

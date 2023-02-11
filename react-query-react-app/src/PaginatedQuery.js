@@ -5,7 +5,7 @@ import { userKeys } from "./utils/queryKeyFactories";
 
 const fetchData = async ({ queryKey }) => {
   const { page } = queryKey[0];
-  return await getPaginatedData(page)
+  return await getPaginatedData(page);
 };
 
 export const PaginatedQuery = () => {
@@ -13,7 +13,7 @@ export const PaginatedQuery = () => {
 
   const { isLoading, isError, error, data, isFetching, isPreviousData } =
     useQuery({
-      queryKey: userKeys.paginated,
+      queryKey: userKeys.paginated(page),
       queryFn: fetchData,
       keepPreviousData: true,
     });
@@ -37,20 +37,22 @@ export const PaginatedQuery = () => {
         ))}
       </div>
       <div>
-      <button
-        onClick={() => setPage((oldValue) => oldValue === 0 ? 0 : oldValue - 1)}
-        disabled={page === 0}
-      >
-        Previous Page
-      </button>
-      <button
-        disabled={isPreviousData}
-        onClick={() => {
-          if (!isPreviousData) setPage((old) => old + 1);
-        }}
-      >
-        Next Page
-      </button>
+        <button
+          onClick={() =>
+            setPage((oldValue) => (oldValue === 0 ? 0 : oldValue - 1))
+          }
+          disabled={page === 0}
+        >
+          Previous Page
+        </button>
+        <button
+          disabled={isPreviousData}
+          onClick={() => {
+            if (!isPreviousData) setPage((old) => old + 1);
+          }}
+        >
+          Next Page
+        </button>
       </div>
       {isFetching ? <span> Loading...</span> : null}
     </>

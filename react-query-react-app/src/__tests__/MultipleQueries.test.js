@@ -1,5 +1,5 @@
 import { ExampleOne, ExampleTwo } from "../MultipleQueries";
-import { fireEvent, render, screen, waitFor } from "../utils/test-utils";
+import { render, screen } from "../utils/test-utils";
 
 describe("MultipleQueries Tests", () => {
   test("ExampleOne: component fetches multiple data", async () => {

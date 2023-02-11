@@ -1,6 +1,6 @@
 import { useQueries } from "@tanstack/react-query";
-import { userKeys } from "../utils/queryKeyFactories";
-import { getUser } from "../api/userAPI";
+import { userKeys } from "../../utils/queryKeyFactories";
+import { getUser } from "../../api/userAPI";
 
 const fetchData = async ({ queryKey }) => {
   const { username } = queryKey[0];

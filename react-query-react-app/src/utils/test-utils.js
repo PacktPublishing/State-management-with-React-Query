@@ -8,6 +8,12 @@ const customRender = (ui, { ...options } = {}) => {
       warn: console.warn,
       error: process.env.NODE_ENV === "test" ? () => {} : console.error,
     },
+    defaultOptions: {
+      queries: {
+        retry: 0,
+        cacheTime: Infinity,
+      },
+    },
   });
 
   const CombinedProviders = ({ children }) => {
