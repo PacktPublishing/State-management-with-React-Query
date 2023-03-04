@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  useMutationState,
+} from "@tanstack/react-query";
 import { useState } from "react";
 import { createUser, fetchAllData } from "./api/userAPI";
 import useOptimisticUpdateUserCreation from "./hooks/user/useOptimisticUpdateUserCreation";
@@ -37,7 +42,7 @@ export const OptimisticMutation = () => {
           value={age}
         />
         <button
-          disabled={mutation.isPaused || mutation.isLoading}
+          disabled={mutation.isPaused || mutation.isPending}
           type="button"
           onClick={(e) => {
             e.preventDefault();
@@ -167,6 +172,137 @@ export const MutationWithSideEffects = () => {
         />
         <button onClick={submitForm}>Add</button>
       </form>
+    </div>
+  );
+};
+
+export const NewOptimisticMutation = () => {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState(0);
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery({
+    queryKey: userKeys.all(),
+    queryFn: fetchAllData,
+    retry: 0,
+  });
+
+  const mutation = useMutation({
+    mutationFn: createUser,
+    retry: 0,
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: userKeys.all() }),
+  });
+
+  return (
+    <div>
+      {data?.map((user, index) => (
+        <div key={user.userID + index}>
+          Name: {user.name} Age: {user.age}
+        </div>
+      ))}
+      {mutation.isPending && (
+        <div key={String(mutation.submittedAt)}>
+          Name: {mutation.variables.name} Age: {mutation.variables.age}
+        </div>
+      )}
+      <form>
+        <input
+          name="name"
+          type={"text"}
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+        />
+        <input
+          name="number"
+          type={"number"}
+          onChange={(e) => setAge(Number(e.target.value))}
+          value={age}
+        />
+        <button
+          disabled={mutation.isPaused || mutation.isPending}
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            mutation.mutate({ name, age });
+          }}
+        >
+          Add
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export const MutationForm = () => {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState(0);
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createUser,
+    mutationKey: userKeys.userMutation(),
+    retry: 0,
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: userKeys.all() }),
+  });
+
+  return (
+    <form>
+      <input
+        name="name"
+        type={"text"}
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+      />
+      <input
+        name="number"
+        type={"number"}
+        onChange={(e) => setAge(Number(e.target.value))}
+        value={age}
+      />
+      <button
+        disabled={mutation.isPaused || mutation.isPending}
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          mutation.mutate({ name, age });
+        }}
+      >
+        Add
+      </button>
+    </form>
+  );
+};
+
+export const NewOptimisticMutationV2 = () => {
+  const { data } = useQuery({
+    queryKey: userKeys.all(),
+    queryFn: fetchAllData,
+    retry: 0,
+  });
+
+  const [mutation] = useMutationState({
+    filters: { mutationKey: userKeys.userMutation(), status: "pending" },
+    select: (mutation) => ({
+      ...mutation.state.variables,
+      submittedAt: mutation.state.submittedAt,
+    }),
+  });
+
+  return (
+    <div>
+      {data?.map((user, index) => (
+        <div key={user.userID + index}>
+          Name: {user.name} Age: {user.age}
+        </div>
+      ))}
+      {mutation && (
+        <div key={String(mutation.submittedAt)}>
+          Name: {mutation.name} Age: {mutation.age}
+        </div>
+      )}
+      <MutationForm />
     </div>
   );
 };

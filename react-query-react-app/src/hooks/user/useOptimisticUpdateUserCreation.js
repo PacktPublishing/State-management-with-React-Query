@@ -8,9 +8,10 @@ const useOptimisticUpdateUserCreation = () => {
   return useMutation({
     mutationFn: createUser,
     retry: 0,
-    onSettled: () => queryClient.invalidateQueries(userKeys.all()),
+    onSettled: () =>
+      queryClient.invalidateQueries({ queryKey: userKeys.all() }),
     onMutate: async (user) => {
-      await queryClient.cancelQueries(userKeys.all());
+      await queryClient.cancelQueries({ queryKey: userKeys.all() });
 
       const previousUsers = queryClient.getQueryData(userKeys.all());
 

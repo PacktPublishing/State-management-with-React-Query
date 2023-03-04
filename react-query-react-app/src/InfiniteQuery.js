@@ -4,7 +4,7 @@ import { userKeys } from "./utils/queryKeyFactories";
 
 const InfiniteScroll = () => {
   const {
-    isLoading,
+    isPending,
     isError,
     error,
     data,
@@ -12,14 +12,19 @@ const InfiniteScroll = () => {
     isFetchingNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: userKeys.api()(),
+    queryKey: userKeys.api(),
     queryFn: getInfiniteData,
+    defaultPageParam: 0,
+    maxPages: 5,
     getNextPageParam: (lastPage, pages) => {
       return lastPage?.info?.nextPage;
     },
+    getPreviousPageParam: (firstPage, pages) => {
+      return firstPage?.info?.prevPage
+    }
   });
 
-  if (isLoading) {
+  if (isPending) {
     return <h2>Loading initial data...</h2>;
   }
 

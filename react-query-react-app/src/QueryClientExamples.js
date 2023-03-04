@@ -53,7 +53,11 @@ export const QueryInvalidation = () => {
   return (
     <div>
       <p>{isFetching ? "Loading..." : data?.hello}</p>
-      <button onClick={() => queryClient.invalidateQueries(userKeys.api())}>
+      <button
+        onClick={() =>
+          queryClient.invalidateQueries({ queryKey: userKeys.api() })
+        }
+      >
         Invalidate Query
       </button>
     </div>
@@ -70,7 +74,9 @@ export const QueryCancelation = () => {
   return (
     <div>
       <p>{isFetching ? "Loading..." : data?.hello}</p>
-      <button onClick={() => queryClient.cancelQueries(userKeys.api())}>
+      <button
+        onClick={() => queryClient.cancelQueries({ queryKey: userKeys.api() })}
+      >
         Cancel Query
       </button>
     </div>

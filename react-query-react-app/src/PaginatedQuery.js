@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { useState } from "react";
 import { getPaginatedData } from "./api/userAPI";
 import { userKeys } from "./utils/queryKeyFactories";
@@ -11,14 +11,14 @@ const fetchData = async ({ queryKey }) => {
 export const PaginatedQuery = () => {
   const [page, setPage] = useState(0);
 
-  const { isLoading, isError, error, data, isFetching, isPreviousData } =
+  const { isPending, isError, error, data, isFetching, isPlaceholderData } =
     useQuery({
       queryKey: userKeys.paginated(page),
       queryFn: fetchData,
-      keepPreviousData: true,
+      placeholderData: keepPreviousData,
     });
 
-  if (isLoading) {
+  if (isPending) {
     return <h2>Loading initial data...</h2>;
   }
 
@@ -46,10 +46,8 @@ export const PaginatedQuery = () => {
           Previous Page
         </button>
         <button
-          disabled={isPreviousData}
-          onClick={() => {
-            if (!isPreviousData) setPage((old) => old + 1);
-          }}
+          disabled={isPlaceholderData}
+          onClick={() => setPage((old) => old + 1)}
         >
           Next Page
         </button>

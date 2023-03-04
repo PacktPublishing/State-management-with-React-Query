@@ -49,4 +49,21 @@ describe("useOptimisticUpdateUserCreation", () => {
       expect(queryClient.getQueryData(userKeys.all())).toEqual([])
     );
   });
+
+  test("should invalidate query on settled", async () => {
+    queryClient.setQueryData(userKeys.all(), []);
+    const invalidateQueriesSpy = jest.spyOn(queryClient, "invalidateQueries");
+    const name = "user";
+    const age = 20;
+    const { result } = renderHook(() => useOptimisticUpdateUserCreation(), {
+      wrapper,
+    });
+
+    result.current.mutate({ name, age });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(invalidateQueriesSpy).toHaveBeenCalledWith({
+      queryKey: userKeys.all(),
+    });
+  });
 });

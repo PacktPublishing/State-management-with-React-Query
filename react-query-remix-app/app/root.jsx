@@ -8,7 +8,7 @@ import {
 } from "@remix-run/react";
 import { useState } from "react";
 import {
-  Hydrate,
+  HydrationBoundary,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
@@ -32,12 +32,12 @@ export default function App() {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
-          <Hydrate state={dehydratedState}>
+          <HydrationBoundary state={dehydratedState}>
             <Outlet />
             <ScrollRestoration />
             <Scripts />
             <LiveReload />
-          </Hydrate>
+          </HydrationBoundary>
         </QueryClientProvider>
       </body>
     </html>

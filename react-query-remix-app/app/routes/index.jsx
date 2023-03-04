@@ -12,10 +12,10 @@ const fetchData = async ({ queryKey }) => {
 
 export async function loader() {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(
-    [{ queryIdentifier: "api", username: "danieljcafonso" }],
-    fetchData
-  );
+  await queryClient.prefetchQuery({
+    queryKey: [{ queryIdentifier: "api", username: "danieljcafonso" }],
+    queryFn: fetchData,
+  });
   return json({ dehydratedState: dehydrate(queryClient) });
 }
 

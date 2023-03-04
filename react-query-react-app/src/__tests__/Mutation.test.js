@@ -4,6 +4,7 @@ import {
   OptimisticMutation,
   ConcurrentMutations,
   MutationWithSideEffects,
+  NewOptimisticMutation
 } from "../Mutation";
 import { render, screen, waitFor } from "../utils/test-utils";
 import userEvent from "@testing-library/user-event";
@@ -16,6 +17,27 @@ describe("Mutation Tests", () => {
     const name = "Daniel";
     const age = "40";
     render(<OptimisticMutation />);
+    const data = await screen.findByText(/admin/i);
+    expect(data).toBeInTheDocument();
+
+    const textInput = screen.getByRole("textbox");
+    userEvent.type(textInput, name);
+    const ageInput = screen.getByRole("spinbutton");
+    userEvent.type(ageInput, age);
+    userEvent.click(
+      screen.getByRole("button", {
+        name: /add/i,
+      })
+    );
+    await waitFor(() =>
+      expect(postSpy.mock.calls[0][1]).toEqual({ name, age: Number(age) })
+    );
+  });
+
+  test("NewOptimisticMutation: data is sent to the server", async () => {
+    const name = "Daniel";
+    const age = "40";
+    render(<NewOptimisticMutation />);
     const data = await screen.findByText(/admin/i);
     expect(data).toBeInTheDocument();
 

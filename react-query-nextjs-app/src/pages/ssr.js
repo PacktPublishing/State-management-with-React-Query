@@ -11,10 +11,10 @@ const fetchData = async ({ queryKey }) => {
 
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(
-    [{ queryIdentifier: "api", username: "danieljcafonso" }],
-    fetchData
-  );
+  await queryClient.prefetchQuery({
+    queryKey: [{ queryIdentifier: "api", username: "danieljcafonso" }],
+    queryFn: fetchData,
+  });
 
   return { props: { dehydratedState: dehydrate(queryClient) } };
 }
@@ -25,5 +25,5 @@ export default function SSR() {
     queryFn: fetchData,
   });
 
-  return <div>This page is server side rendered {data.hello}</div>;
+  return <div>This page is server side rendered {data?.hello}</div>;
 }

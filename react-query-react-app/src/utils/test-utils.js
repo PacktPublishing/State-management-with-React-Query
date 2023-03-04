@@ -3,15 +3,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const customRender = (ui, { ...options } = {}) => {
   const queryClient = new QueryClient({
-    logger: {
-      log: console.log,
-      warn: console.warn,
-      error: process.env.NODE_ENV === "test" ? () => {} : console.error,
-    },
     defaultOptions: {
       queries: {
         retry: 0,
-        cacheTime: Infinity,
+        gcTime: Infinity,
       },
     },
   });

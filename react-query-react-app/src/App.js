@@ -13,13 +13,14 @@ const apiA = "react-query-api";
 const apiB = "react-query-api-two";
 
 const ComponentA = () => {
-  const { data, error, isLoading, isError, isFetching } = useQuery({
+  const { data, error, isPending, isError, isFetching } = useQuery({
     queryKey: [{ queryIdentifier: "api", apiName: apiA }],
     queryFn: fetchData,
     retry: 1,
   });
 
-  if (isLoading) return <div> Loading data... </div>;
+
+  if (isPending) return <div> Loading data... </div>;
 
   if (isError)
     return (
