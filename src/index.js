@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import QueryInvalidation from "./QueryClientExamples";
+import { QueryInvalidation } from "./QueryClientExamples";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -33,7 +32,7 @@ const CombinedProviders = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-    <QueryInvalidation />
+      <QueryInvalidation />
       {showDevtools && (
         <React.Suspense fallback={null}>
           <ReactQueryDevtoolsProduction />

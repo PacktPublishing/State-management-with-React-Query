@@ -9,7 +9,7 @@ const fetchData = async ({ queryKey }) => {
   return data;
 };
 
-const ExampleOne = () => {
+export const ExampleOne = () => {
   const { data: queryOneData  } = useQuery({
     queryKey: [{ queryIdentifier: "api", username: "userOne" }],
     queryFn: fetchData,
@@ -34,7 +34,7 @@ const ExampleOne = () => {
 
 const usernameList = ["userOne", "userTwo", "userThree"];
 
-const ExampleTwo = () => {
+export const ExampleTwo = () => {
   const multipleQueries = useQueries({
     queries: usernameList.map((username) => {
       return {

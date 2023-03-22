@@ -52,7 +52,7 @@ const PrefetchedDataComponent = () => {
   return <div>{data?.hello}</div>;
 };
 
-const ExamplePrefetching = () => {
+export const ExamplePrefetching = () => {
   const [renderComponent, setRenderComponent] = useState(false);
   const queryClient = useQueryClient();
 
@@ -73,7 +73,7 @@ const ExamplePrefetching = () => {
   );
 };
 
-const QueryInvalidation = () => {
+export const QueryInvalidation = () => {
   const { data } = useQuery({
     queryKey: [{ queryIdentifier: "api", username: "userOne" }],
     queryFn: fetchData,
@@ -96,7 +96,7 @@ const QueryInvalidation = () => {
   );
 };
 
-const QueryCancelation = () => {
+export const QueryCancelation = () => {
   const { data } = useQuery({
     queryKey: [{ queryIdentifier: "api", username: "userOne" }],
     queryFn: fetchData,

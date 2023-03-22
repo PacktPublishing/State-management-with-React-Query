@@ -10,7 +10,7 @@ const fetchData = async ({ queryKey }) => {
   return data;
 };
 
-const PaginatedQuery = () => {
+export const PaginatedQuery = () => {
   const [page, setPage] = useState(0);
 
   const { isLoading, isError, error, data, isFetching, isPreviousData } =

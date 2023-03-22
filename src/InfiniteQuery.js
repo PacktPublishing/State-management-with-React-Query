@@ -3,7 +3,7 @@ import axios from "axios";
 
 const fetchData = async ({ pageParam = 1 }) => {
   const { data } = await axios.get(
-    `https://danieljcafonso.builtwithdark.com/react-query-infite?page=${pageParam}&results=10`
+    `https://danieljcafonso.builtwithdark.com/react-query-infinite?page=${pageParam}&results=10`
   );
 
   return data;
