@@ -23,7 +23,7 @@ const createUserFetch = async (user) => {
   });
 };
 
-const Mutation = () => {
+export const Mutation = () => {
   const queryClient = useQueryClient();
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
@@ -94,7 +94,7 @@ const Mutation = () => {
   );
 };
 
-const SimpleMutation = () => {
+export const SimpleMutation = () => {
   const [name, setName] = useState("");
 
   const { mutate, isPaused } = useMutation({
@@ -124,7 +124,7 @@ const SimpleMutation = () => {
   );
 };
 
-const ConcurrentMutations = () => {
+export const ConcurrentMutations = () => {
   const [name, setName] = useState("");
 
   const { mutateAsync: mutateAsyncOne } = useMutation({
@@ -164,7 +164,7 @@ const ConcurrentMutations = () => {
 const showToast = (data) => console.log(data);
 const goToRoute = (data) => console.log(data);
 
-const MutationWithSideEffects = () => {
+export const MutationWithSideEffects = () => {
   const [name, setName] = useState("");
 
   const queryClient = useQueryClient();

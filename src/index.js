@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Mutation from "./Mutation";
+import { MutationWithSideEffects } from "./Mutation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
@@ -31,7 +31,7 @@ const CombinedProviders = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Mutation />
+      <MutationWithSideEffects />
       {showDevtools && (
         <React.Suspense fallback={null}>
           <ReactQueryDevtoolsProduction />
