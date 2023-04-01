@@ -1,10 +1,9 @@
 import useOptimisticUpdateUserCreation from "../useOptimisticUpdateUserCreation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, waitFor } from "../../../utils/test-utils";
 import { userKeys } from "../../../utils/queryKeyFactories";
 import { server } from "../../../mocks/server";
 import { rest } from "msw";
-import { waitFor } from "@testing-library/react";
 
 const queryClient = new QueryClient({
   logger: {
@@ -22,12 +21,9 @@ describe("useOptimisticUpdateUserCreation", () => {
     queryClient.setQueryData(userKeys.all(), []);
     const name = "user";
     const age = 20;
-    const { result, waitFor } = renderHook(
-      () => useOptimisticUpdateUserCreation(),
-      {
-        wrapper,
-      }
-    );
+    const { result } = renderHook(() => useOptimisticUpdateUserCreation(), {
+      wrapper,
+    });
 
     result.current.mutate({ name, age });
 

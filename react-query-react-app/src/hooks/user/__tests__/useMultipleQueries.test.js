@@ -1,6 +1,6 @@
 import useMultipleQueries from "../useMultipleQueries";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, waitFor } from "../../../utils/test-utils";
 
 const queryClient = new QueryClient();
 const wrapper = ({ children }) => (
@@ -9,7 +9,7 @@ const wrapper = ({ children }) => (
 
 describe("useMultipleQueries", () => {
   test("should fetch all data", async () => {
-    const { result, waitFor } = renderHook(() => useMultipleQueries(), {
+    const { result } = renderHook(() => useMultipleQueries(), {
       wrapper,
     });
     await waitFor(() => expect(result.current.queryOneData).toBeDefined());

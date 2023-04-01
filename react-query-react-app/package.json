@@ -26,7 +26,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --runInBand",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -48,9 +48,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react-hooks": "^8.0.1",
-    "msw": "^1.0.0",
-    "react-test-renderer": "^18.2.0"
+    "msw": "^1.0.0"
   },
   "jest": {
     "transform": {
