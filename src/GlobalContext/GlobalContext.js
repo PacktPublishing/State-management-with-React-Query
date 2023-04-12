@@ -8,8 +8,8 @@ const theme = {
 };
 
 export const GlobalStore = () => {
-  const [selectedTheme, setSelectedTheme] = useState(theme.WHITE);
-  const [secondaryTheme, setSecondaryTheme] = useState(theme.WHITE);
+  const [selectedTheme, setSelectedTheme] = useState(theme.LIGHT);
+  const [secondaryTheme, setSecondaryTheme] = useState(theme.LIGHT);
   const [data, setData] = useState(null);
   const [isLoadingData, setIsLoadingData] = useState(false);
 
