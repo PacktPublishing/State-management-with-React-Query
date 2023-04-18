@@ -68,7 +68,7 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 ### Related products <Other books you may enjoy>
 * AWS for Solutions Architects - Second Edition  [[Packt]](https://www.packtpub.com/product/aws-for-solutions-architects-second-edition/9781803238951) [[Amazon]](https://www.amazon.com/AWS-Solutions-Architects-workload-cloud-native/dp/180323895X)
 
-* Cloud Computing Demystified for Aspiring Professionals  [[Packt]](https://www.packtpub.com/product/cloud-computing-demystified-for-aspiring-professionals/9781803243313) [[Amazon]](https://www.amazon.com/Cloud-Computing-Demystified-for-Aspiring-Professionals/dp/1803231343)
+* Cloud Computing Demystified for Aspiring Professionals  [[Packt]](https://www.packtpub.com/product/cloud-computing-demystified-for-aspiring-professionals/9781803243313) [[Amazon]](https://www.amazon.com/cloud-computing-demystified-for-aspiring-professionals/dp/1803244836)
 
 ## Get to Know the Author
 **Daniel Afonso** is a developer advocate with a full-stack background, having worked with different languages and frameworks on various projects, from IoT to fraud detection. He is passionate about learning and teaching and has spoken at multiple conferences related to React, JavaScript, and testing. In his free time, when he’s not learning new technologies or writing about them, he’s probably reading comics or watching superhero movies and shows.	
