@@ -1,9 +1,9 @@
 # State Management with React Query
 State Management with React Query, published by Packt
 
-<a href="https://www.packtpub.com/product/state-management-with-react-query/9781803231341"><img src="https://static.packt-cdn.com/products/9781803231341/cover/smaller" alt="Eleventy By Example" height="256px" align="right"></a>
+<a href="https://www.packtpub.com/product/state-management-with-react-query/9781803231341"><img src="https://static.packt-cdn.com/products/9781803231341/cover/smaller" alt="State Management with React Query" height="256px" align="right"></a>
 
-This is the code repository for [State Management with React Query](https://www.packtpub.com/product//state-management-with-react-query/9781803231341), published by Packt.
+This is the code repository for [State Management with React Query](https://www.packtpub.com/product/state-management-with-react-query/9781803231341), published by Packt.
 
 **Improve developer and user experience by mastering server state in React**
 
